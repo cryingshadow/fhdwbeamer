@@ -1,0 +1,112 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{fhdwbeamer}[2022/09/16 LaTeX Beamer Template for FHDW]
+
+\RequirePackage{ifthen}
+
+\newboolean{exam@progra}
+\setboolean{exam@progra}{false}
+
+\newboolean{exam@retake}
+\setboolean{exam@retake}{false}
+
+\newboolean{exam@calculator}
+\setboolean{exam@calculator}{false}
+
+\newboolean{exam@othertools}
+\setboolean{exam@othertools}{false}
+
+
+%% Article options
+%\DeclareOption{10pt}{
+%  \PassOptionsToClass{\CurrentOption}{article}
+%}
+
+% Custom package options
+\DeclareOption{progra}{
+ \setboolean{exam@progra}{true}
+}
+\DeclareOption{retake}{
+ \setboolean{exam@retake}{true}
+}
+\DeclareOption{calculator}{
+ \setboolean{exam@calculator}{true}
+}
+
+% Fallback
+\DeclareOption*{
+ \PackageWarning{tosexam}{Unknown option '\CurrentOption'}
+}
+
+%% Execute default options
+%\ExecuteOptions{10pt}
+
+% Process given options
+\ProcessOptions\relax
+
+%% Load base
+%\LoadClass[a4paper]{article}
+
+%% Load additional packages and commands.
+\RequirePackage[ngerman]{babel}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{graphicx}
+\RequirePackage{xcolor}
+\RequirePackage{uarial}
+\RequirePackage{tikz}
+\usetikzlibrary{arrows,shapes,chains,matrix,positioning,scopes,decorations,shadows,calc,trees,backgrounds}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\definecolor{fhdwblue}{RGB}{33,55,105}
+\definecolor{fhdworange}{RGB}{245,146,3}
+
+\colorlet{fhdwgray}{black!40}
+\colorlet{fhdwlightgray}{black!20}
+\colorlet{fhdwgreen}{green!60!black}
+
+\newcommand{\insertauthorpic}{\includegraphics[width=1.446cm]{me.png}}
+\newcommand{\footertext}{%
+  \fontsize{5}{5}\selectfont\begin{minipage}{3mm}\vspace*{-1pt}\raggedleft\insertframenumber\end{minipage}\hspace*{3mm}
+  © FHDW.\hspace*{3mm}\insertshortauthor{}: \inserttitle{}
+}
+\newcommand{\datesize}{\fontsize{10}{10}\selectfont}
+
+
+\mode<presentation>
+{
+% \setbeamerfont{block title}{size={}}
+% \usefonttheme{professionalfonts} % using non standard fonts for beamer
+% \usefonttheme{sans} % default family is serif
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation bars}{}
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=4mm}
+\setbeamersize{text margin right=4mm}
+\setbeamertemplate{itemize items}[circle]
+% \setbeamertemplate{enumerate items}[none]
+\setbeamertemplate{headline}{}
+\setbeamertemplate{footline}{
+  \begin{tikzpicture}[remember picture,overlay]
+  \shade[shading=axis,bottom color=white,top color=white,middle color=fhdwlightgray,shading angle=0] ($(current page.south west)+(0.6,0.56)$) rectangle ($(current page.south east)+(-3.5,0.62)$);
+  \draw[fhdworange] ($(current page.south west)+(0.6,0.6)$) -- ($(current page.south east)+(-3.5,0.6)$);
+  \node (logosmall) at ($(current page.south east)+(-0.3,0.0)$) [anchor=south east] {\includegraphics[height=5mm]{fhdwlogo.png}};
+  \node[fhdwblue] (textline) at ($(current page.south west)+(0.8,0.13)$) [anchor=south west] {\footertext{}};
+  \end{tikzpicture}
+}
+\defbeamertemplate*{title page}{fhdw}[1][]{
+  \begin{tikzpicture}[remember picture,overlay]
+  \node (logo) at ($(current page.south east)+(-0.5,0.2)$) [anchor=south east] {\includegraphics[height=12mm]{fhdwlogo.png}};
+  \node[white] (title) at ($(logo)+(-0.7,0.65)$) [anchor=south west] {\fontsize{20}{16}\selectfont\textbf{\inserttitle}\par};
+  \node[white] (date) [below=of title.west,anchor=west] {\datesize\insertdate,};
+  \node[white] (place) [below=0.42 of date.west,anchor=west] {};
+  \node[white] (authorpic) [below=0.2 of place.south west,anchor=north west] {};
+  \node[white] (author) [right=0.1 of authorpic.south east,anchor=south west] {\datesize\selectfont\insertauthor};
+  \node[white] (textline) at ($(current page.south west)+(0.8,0.13)$) [anchor=south west] {\footertext{}};
+  \end{tikzpicture}
+}
+\defbeamertemplate*{frametitle}{fhdw}[1][]{
+  \vskip2mm%
+  \hspace*{3mm}\fontsize{16}{12}\selectfont\textbf{\textcolor{fhdwblue}{\insertframetitle}}
+}
+}
+
