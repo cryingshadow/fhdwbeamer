@@ -2,29 +2,64 @@
 
 \usepackage{fhdwbeamer}
 
-\title{Test Slides for the \texttt{fhdwbeamer} Package}
+\title[Short Title]{Test Slides for the \texttt{fhdwbeamer} Package}
 \subtitle{Title Slide and Normal Slide}
-\author{Dr.\ Thomas Ströder}
-\date{\today}
-\institute{FHDW}
-
+\author{Prof.\ Dr.\ Who Knows}
+\date{2022-09-18}
 
 \begin{document}
 
+\begin{frame}
 \titlepage
+\end{frame}
 
 \begin{frame}
 \frametitle{This is the Frame Title}
-\centering
-This is normal text.
+\framesubtitle{This is the Frame Subttitle}
+This is normal text. When adding a few more words, it is long enough to have a line break.
 \begin{itemize}
-\item This is the first item of an itemization.
+\item This is the first item of an itemization. It is long enough to have a line break.
 \item This is the second item of an itemization.
 \end{itemize}
 \begin{enumerate}
-\item This is the first item of an enumeration.
+\item This is the first item of an enumeration. It is long enough to have a line break.
 \item This is the second item of an enumeration.
 \end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{This is a Frame without a Subtitle}
+\centering
+But it has centered text.
+\end{frame}
+
+\begin{frame}
+\frametitle{This is an Empty Frame with a Long Title Causing a Line Break}
+\end{frame}
+
+\begin{frame}
+\frametitle{This is an Empty Frame}
+\framesubtitle{And it has a Long Enough Subttitle such that it Needs a Line Break}
+\end{frame}
+
+\begin{frame}
+\frametitle{Now Come}
+\end{frame}
+
+\begin{frame}
+\frametitle{More Slides}
+\end{frame}
+
+\begin{frame}
+\frametitle{such that}
+\end{frame}
+
+\begin{frame}
+\frametitle{we Reach}
+\end{frame}
+
+\begin{frame}
+\frametitle{Slide 10}
 \end{frame}
 
 \end{document}
