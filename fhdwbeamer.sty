@@ -34,7 +34,6 @@
 
 \colorlet{fhdwgray}{black!40}
 \colorlet{fhdwlightgray}{black!20}
-\colorlet{fhdwgreen}{green!60!black}
 
 \newcommand{\footertext}{\tiny\textbf{\insertshorttitle, \insertauthor}}
 \newcommand{\datetext}{\DTMsetdatestyle{ddm}\begin{minipage}{3cm}\tiny\textbf{\DTMusedate{fhdwdate}}\\\textbf{\DTMfetchyear{fhdwdate}}\end{minipage}}
@@ -47,7 +46,6 @@
 
 \mode<presentation>
 {
-\setbeamercovered{transparent}
 \setbeamertemplate{navigation bars}{}
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{itemize items}{\raisebox{0.8mm}{\tiny$\bullet$}}
@@ -91,3 +89,5 @@
   \@nameuse{ps@navigation}
 }
 \addtobeamertemplate{title page}{\thispagestyle{navigation@titlepage}}{}
+
+\newcommand{\centerednode}[2]{\begin{minipage}{#1}\begin{center}#2\end{center}\end{minipage}}
