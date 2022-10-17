@@ -45,6 +45,20 @@
 \renewcommand*{\DTMDisplaydate}{\DTMdisplaydate}%
 }
 
+\newcommand{\fhdwtitlepage}[2]{%
+  \begin{tikzpicture}[remember picture,overlay]
+  \shade[shading=axis,bottom color=white,top color=white,middle color=fhdwgray,shading angle=0] ($(current page.south west)+(0.0,2.0)$) rectangle ($(current page.south east)+(0.0,2.2)$);
+  \fill[fhdwblue] (current page.north west) rectangle ($(current page.north east)+(0.0,-7.5)$);
+  \node (logo) at ($(current page.south east)+(-0.5,0.2)$) [anchor=south east] {\includegraphics[height=12mm]{fhdwlogo.png}};
+  \node[fhdworange] (title) at (current page.center) [anchor=south] {\begin{minipage}{\textwidth}\begin{center}\Huge\textbf{#1}\end{center}\end{minipage}};
+  \node[white] (subtitle) [below=0.3 of title.south,anchor=north] {\begin{minipage}{\textwidth}\begin{center}\Large#2\end{center}\end{minipage}};
+  \node[fhdwblue] (slidenumber) at ($(current page.south west)+(0.33,0.55)$) [anchor=north west] {\tiny\insertframenumber{}};
+  \node[fhdwblue] (textline) at ($(current page.south west)+(1.042,0.55)$) [anchor=north west] {\footertext{}};
+  \draw[fhdworange,thick] ($(current page.south west)+(0.8,0.24)$) -- ($(current page.south west)+(0.8,0.44)$);
+  \node[fhdwblue] (date) [right=6.5 of textline.west,anchor=west] {\datetext{}};
+  \end{tikzpicture}
+}
+
 
 \mode<presentation>
 {
@@ -65,19 +79,7 @@
   \node[fhdwblue] (date) [right=8 of textline.west,anchor=west] {\datetext{}};
   \end{tikzpicture}
 }
-\defbeamertemplate*{title page}{fhdw}[1][]{
-  \begin{tikzpicture}[remember picture,overlay]
-  \shade[shading=axis,bottom color=white,top color=white,middle color=fhdwgray,shading angle=0] ($(current page.south west)+(0.0,2.0)$) rectangle ($(current page.south east)+(0.0,2.2)$);
-  \fill[fhdwblue] (current page.north west) rectangle ($(current page.north east)+(0.0,-7.5)$);
-  \node (logo) at ($(current page.south east)+(-0.5,0.2)$) [anchor=south east] {\includegraphics[height=12mm]{fhdwlogo.png}};
-  \node[fhdworange] (title) at (current page.center) [anchor=south] {\begin{minipage}{\textwidth}\begin{center}\Huge\textbf{\inserttitle}\end{center}\end{minipage}};
-  \node[white] (subtitle) [below=0.3 of title.south,anchor=north] {\begin{minipage}{\textwidth}\begin{center}\Large\insertsubtitle\end{center}\end{minipage}};
-  \node[fhdwblue] (slidenumber) at ($(current page.south west)+(0.33,0.55)$) [anchor=north west] {\tiny\insertframenumber{}};
-  \node[fhdwblue] (textline) at ($(current page.south west)+(1.042,0.55)$) [anchor=north west] {\footertext{}};
-  \draw[fhdworange,thick] ($(current page.south west)+(0.8,0.24)$) -- ($(current page.south west)+(0.8,0.44)$);
-  \node[fhdwblue] (date) [right=6.5 of textline.west,anchor=west] {\datetext{}};
-  \end{tikzpicture}
-}
+\defbeamertemplate*{title page}{fhdw}[1][]{\fhdwtitlepage{\inserttitle}{\insertsubtitle}}
 \defbeamertemplate*{frametitle}{fhdw}[1][]{
   \vskip3mm%
   \begin{minipage}[t]{\textwidth}\LARGE\textbf{\textcolor{fhdworange}{\insertframetitle}}\end{minipage}
@@ -91,5 +93,11 @@
   \@nameuse{ps@navigation}
 }
 \addtobeamertemplate{title page}{\thispagestyle{navigation@titlepage}}{}
+
+\AtBeginSection[]{
+  \begin{frame}[plain]
+  \fhdwtitlepage{\insertsectionhead}{}
+  \end{frame}
+}
 
 \newcommand{\centerednode}[2]{\begin{minipage}{#1}\begin{center}#2\end{center}\end{minipage}}
